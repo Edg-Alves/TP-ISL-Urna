@@ -10,19 +10,15 @@ parameter finish_vote = 2'b11)
     input swap,				
     input finish,			
 
-    output reg [1:0] VoteStatus,
-    output reg [7:0] TotalC1,			
-    output reg [7:0] TotalC2,			
-    output reg [7:0] TotalNull			
+    output reg [0:0] VoteStatus,
+    output reg [7:0] contadorC1,			
+    output reg [7:0] contadorC2,			
+    output reg [7:0] contadorNull			
 
 );	  
 
 reg [3:0] digito1C1;					
 reg [3:0] digito1C2;					
-
-reg [3:0] contadorC1;						
-reg [3:0] contadorC2;						
-reg [3:0] contadorNulL;
 
 reg [1:0] estado_atual, proximo_estado;		
 
@@ -37,9 +33,9 @@ always @(negedge finish or posedge valid)
 
 					else
 						begin							
-							contadorC1 <= 8'b0;										
-							contadorC2 <= 8'b0;
-							contadorNulL <= 8'b0;
+							contadorC1 <= 8'b00000000;										
+							contadorC2 <= 8'b00000000;
+							contadorNull <= 8'b00000000;
 							proximo_estado <= inicio;								
 						end
 				
@@ -91,7 +87,7 @@ always @(negedge finish or posedge valid)
 						end
 					else 
 						begin
-							contadorNulL <= contadorNulL + 1'b1;
+							contadorNull <= contadorNull + 1'b1;
 							VoteStatus <= 1'b0;
 							proximo_estado <= digito1;
 						end
@@ -107,7 +103,7 @@ always @(negedge finish or posedge valid)
 					begin
 						contadorC1 <= 8'b0;										
 						contadorC2 <= 8'b0;
-						contadorNulL <= 8'b0;
+						contadorNull <= 8'b0;
 						proximo_estado <= inicio;
 					end
 		endcase
