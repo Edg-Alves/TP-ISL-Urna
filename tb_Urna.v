@@ -34,13 +34,44 @@ initial begin
     $dumpvars(0, tb_Urna);
 end
 
+reg [6:0] teste[0:18];
+    integer i;
+
 initial begin
-    tb_finish = 1'b0;
-    tb_digit = 4'b0010;
-    tb_valid = 1'b1;
-    tb_digit = 4'b0010;
-    tb_valid = 1'b1;
-    $display("Status: %d", tb_VoteStatus);
+      teste[0] = 7'b0_0_0_0_0_0_0;
+      teste[1] = 7'b0_0_0_0_0_0_0;
+      teste[2] = 7'b0_0_0_0_0_0_0;
+      teste[3] = 7'b0_0_0_0_0_0_0;
+      teste[4] = 7'b0_0_0_0_0_0_0;
+      teste[5] = 7'b0_0_0_0_0_0_0;
+      teste[6] = 7'b0_0_0_0_0_0_0;
+      teste[7] = 7'b0_0_0_0_0_0_0;
+      teste[8] = 7'b0_0_0_0_0_0_0;
+      teste[9] = 7'b0_0_0_0_0_0_0;
+      teste[10] = 7'b0_0_0_0_0_0_0;
+      teste[11] = 7'b0_0_0_0_0_0_0;
+      teste[12] = 7'b0_0_0_0_0_0_0;
+      teste[13] = 7'b0_0_0_0_0_0_0;
+      teste[14] = 7'b0_0_0_0_0_0_0;
+      teste[15] = 7'b0_0_0_0_0_0_0;
+      teste[16] = 7'b0_0_0_0_0_0_0;
+      teste[17] = 7'b0_0_0_0_0_0_0;
+      teste[18] = 7'b0_0_0_0_0_0_0;
+
+      for (i = 0; i < 19; i = i + 1)
+      begin
+        tb_digit[0][0] = teste[i][3];
+        tb_digit[1] = teste[i][4];
+        tb_digit[2] = teste[i][5];
+        tb_digit[3] = teste[i][6];
+        tb_swap = teste[i][2];
+        tb_valid = teste[i][1];
+        tb_finish = teste[i][0];
+
+        #10;
+        $display("S1: %d S2: %d S3: %d S4: %d S5: %d", S1, S2, S3, S4, S5);
+        $display("a: %d b: %d c: %d d: %d e: %d f: %d g: %d", a, b, c, d, e, f, g);
+      end
 end
 
 endmodule
