@@ -5,7 +5,10 @@ parameter digito2 = 2'b10,
 parameter finish_vote = 2'b11)
 (
     input clk,							
-    input digit,				
+    input digit0,
+	input digit1,
+	input digit2,
+	input digit3,				
     input valid,
     input swap,				
     input finish,			
@@ -43,12 +46,12 @@ always @(negedge finish or posedge valid)
 						begin
 							proximo_estado <= finish_vote;								
 						end
-					else if (digit == 4'b0001 && valid == 1'b1)
+					else if (digit0 == 1'b0 && digit1 == 1'b0 && digit2 == 1'b0 && digit3 == 1'b1 && valid == 1'b1)
 						begin
 							digito1C1 <= 4'b0001;
 							proximo_estado <= digito2;
 						end
-					else if (digit == 4'b0010 && valid == 1'b1)
+					else if (digit0 == 1'b0 && digit1 == 1'b0 && digit2 == 1'b1 && digit3 == 1'b0 && valid == 1'b1)
 						begin
 							digito1C2 <= 4'b0010;
 							proximo_estado <= digito2;
@@ -61,25 +64,25 @@ always @(negedge finish or posedge valid)
 						begin
 							proximo_estado <= finish_vote;
 						end
-					else if (digit == 4'b0011 && valid == 1'b1)
+					else if (digit0 == 1'b0 && digit1 == 1'b0 && digit2 == 1'b1 && digit3 == 1'b1 && valid == 1'b1 && digito1C1 == 4'b0001)
 						begin
 							contadorC1 <= contadorC1 + 1'b1;
 							VoteStatus <= 1'b1;
 							proximo_estado <= digito1;
 						end
-					else if (digit == 4'b0010 && valid == 1'b1)
+					else if (digit0 == 1'b0 && digit1 == 1'b0 && digit2 == 1'b1 && digit3 == 1'b1 && valid == 1'b0 && digito1C2 == 4'b0010)
 						begin
 							contadorC2 <= contadorC2 + 1'b1;
 							VoteStatus <= 1'b1;
 							proximo_estado <= digito1;
 						end
-					else if (digit == 4'b0010 && valid == 1'b1 && swap == 1'b1)
+					else if (digit0 == 1'b0 && digit1 == 1'b0 && digit2 == 1'b1 && digit3 == 1'b1 && valid == 1'b0 && digito1C2 == 4'b0010 && swap == 1'b1)
 						begin
 							contadorC1 <= contadorC1 + 1'b1;
 							VoteStatus <= 1'b1;
 							proximo_estado <= digito1;
 						end
-					else if (digit == 4'b0011 && valid == 1'b1 && swap == 1'b1)
+					else if (digit0 == 1'b0 && digit1 == 1'b0 && digit2 == 1'b1 && digit3 == 1'b1 && valid == 1'b1 && digito1C1 == 4'b0001 && swap == 1'b1)
 						begin
 							contadorC2 <= contadorC2 + 1'b1;
 							VoteStatus <= 1'b1;
