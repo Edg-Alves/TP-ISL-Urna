@@ -28,12 +28,10 @@ reg [1:0] estado_atual, proximo_estado;
 always @(negedge finish or posedge valid)
 	begin
 		case (estado_atual)														
-
 			inicio: if (!finish)											
-						begin
-							proximo_estado <= digito1;								
-						end	
-
+				begin
+					proximo_estado <= digito1;								
+				end	
 					else
 						begin							
 							contadorC1 <= 8'b00000000;										
